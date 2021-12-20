@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2021 at 05:01 AM
+-- Generation Time: Dec 20, 2021 at 10:45 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.2.30
 
@@ -24,120 +24,172 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kendaraan`
+-- Table structure for table `gangguan`
 --
 
-CREATE TABLE `kendaraan` (
-  `id_kendaraan` int(15) NOT NULL,
-  `kode_kendaraan` varchar(25) NOT NULL,
-  `merk` varchar(25) NOT NULL,
-  `harga` int(15) NOT NULL,
-  `stok` int(15) NOT NULL
+CREATE TABLE `gangguan` (
+  `id_gangguan` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `id_nama` int(11) NOT NULL,
+  `nama_alat` varchar(50) NOT NULL,
+  `ciri` text NOT NULL,
+  `dampak` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kendaraan`
+-- Dumping data for table `gangguan`
 --
 
-INSERT INTO `kendaraan` (`id_kendaraan`, `kode_kendaraan`, `merk`, `harga`, `stok`) VALUES
-(3, 'HP001', 'Honda PCX e HEV', 43712000, 50),
-(4, 'HF001', 'Honda Forza', 84807000, 20);
+INSERT INTO `gangguan` (`id_gangguan`, `tanggal`, `id_nama`, `nama_alat`, `ciri`, `dampak`) VALUES
+(1, '2021-12-20', 8, 'Server A', 'Mati mendadak', 'Kinerja menjadi lambat\r\n');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pelanggan`
+-- Table structure for table `jenis_peralatan`
 --
 
-CREATE TABLE `pelanggan` (
-  `id_pelanggan` int(15) NOT NULL,
-  `kode_pelanggan` varchar(7) NOT NULL,
-  `nama_pelanggan` varchar(25) NOT NULL,
-  `alamat` varchar(25) NOT NULL,
-  `kota` varchar(25) NOT NULL
+CREATE TABLE `jenis_peralatan` (
+  `id_jenis` int(11) NOT NULL,
+  `nama_jenis` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pelanggan`
+-- Dumping data for table `jenis_peralatan`
 --
 
-INSERT INTO `pelanggan` (`id_pelanggan`, `kode_pelanggan`, `nama_pelanggan`, `alamat`, `kota`) VALUES
-(1, 'P_00001', 'PT.Ikhlas', 'Jl. Melati No. 5', 'Padang'),
-(2, 'P_00002', 'PT. Syukur', 'Jl. Mawar No. 1', 'Bukittinggi');
+INSERT INTO `jenis_peralatan` (`id_jenis`, `nama_jenis`) VALUES
+(1, 'Router'),
+(3, 'Switch/Hub'),
+(5, 'Radio Wireless'),
+(6, 'Access Point'),
+(7, 'PC / Mini PC'),
+(8, 'Server'),
+(9, 'Modem');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaksi`
+-- Table structure for table `nama_peralatan`
 --
 
-CREATE TABLE `transaksi` (
-  `id_transaksi` int(15) NOT NULL,
-  `no_faktur` varchar(25) NOT NULL,
-  `tgl_faktur` date NOT NULL,
-  `kode_pelanggan` varchar(25) NOT NULL,
-  `nama_pelanggan` varchar(25) NOT NULL,
-  `alamat` varchar(25) NOT NULL,
-  `kota` varchar(25) NOT NULL,
-  `kode_kendaraan` varchar(25) NOT NULL,
-  `merk` varchar(25) NOT NULL,
-  `harga` int(15) NOT NULL,
-  `stok` int(15) NOT NULL,
-  `jml_transaksi` int(15) NOT NULL,
-  `jml_bayar` int(15) NOT NULL
+CREATE TABLE `nama_peralatan` (
+  `id_nama` int(11) NOT NULL,
+  `id_jenis` int(11) NOT NULL,
+  `nama_jenis` varchar(50) NOT NULL,
+  `nama_alat` varchar(50) NOT NULL,
+  `jumlah_port` varchar(11) DEFAULT NULL,
+  `alamat_ip` varchar(50) DEFAULT NULL,
+  `nama_wifi` varchar(50) DEFAULT NULL,
+  `pass_wifi` varchar(50) DEFAULT NULL,
+  `frekuensi` varchar(50) DEFAULT NULL,
+  `lebar_frekuensi` varchar(50) DEFAULT NULL,
+  `ram` varchar(50) DEFAULT NULL,
+  `storage` varchar(50) DEFAULT NULL,
+  `prosesor` varchar(50) DEFAULT NULL,
+  `lokasi_awal` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `transaksi`
+-- Dumping data for table `nama_peralatan`
 --
 
-INSERT INTO `transaksi` (`id_transaksi`, `no_faktur`, `tgl_faktur`, `kode_pelanggan`, `nama_pelanggan`, `alamat`, `kota`, `kode_kendaraan`, `merk`, `harga`, `stok`, `jml_transaksi`, `jml_bayar`) VALUES
-(3, 'Fak01', '2021-07-01', 'P_00001', 'PT. Ikhlas', 'Jl. Melati No. 5', 'Padang', 'P_00001', 'Honda PCX e HEV', 43712000, 50, 3, 131136000),
-(4, 'Fak01', '2021-07-01', 'P_00001', 'PT. Ikhlas', 'Jl. Melati No. 5', 'Padang', 'P_00001', 'Honda Forza', 84807000, 20, 2, 169614000);
+INSERT INTO `nama_peralatan` (`id_nama`, `id_jenis`, `nama_jenis`, `nama_alat`, `jumlah_port`, `alamat_ip`, `nama_wifi`, `pass_wifi`, `frekuensi`, `lebar_frekuensi`, `ram`, `storage`, `prosesor`, `lokasi_awal`) VALUES
+(8, 8, 'Server', 'Server A', '', '', '', '', '', '', '4 GB', '500 GB', 'Intel i5', 'Kantor A'),
+(9, 6, 'Access Point', 'Access Point A', '', '200.200.200.0', 'test1', 'test1', '48 Khz', '100mm', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penanganan_gangguan`
+--
+
+CREATE TABLE `penanganan_gangguan` (
+  `id_penanganan` int(11) NOT NULL,
+  `tanggal` date NOT NULL,
+  `id_gangguan` int(11) NOT NULL,
+  `nama_alat` varchar(50) NOT NULL,
+  `ciri` text NOT NULL,
+  `oleh` varchar(50) NOT NULL,
+  `tindakan` text NOT NULL,
+  `hasil` text NOT NULL,
+  `rekomendasi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `penanganan_gangguan`
+--
+
+INSERT INTO `penanganan_gangguan` (`id_penanganan`, `tanggal`, `id_gangguan`, `nama_alat`, `ciri`, `oleh`, `tindakan`, `hasil`, `rekomendasi`) VALUES
+(1, '2021-12-20', 1, 'Server A', 'Mati mendadak', 'vince', 'penjagaan lingkungan server', 'server berjalan normal', 'tempatkan server ditempat yang aman');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `kendaraan`
+-- Indexes for table `gangguan`
 --
-ALTER TABLE `kendaraan`
-  ADD PRIMARY KEY (`id_kendaraan`);
+ALTER TABLE `gangguan`
+  ADD PRIMARY KEY (`id_gangguan`),
+  ADD KEY `id_nama` (`id_nama`);
 
 --
--- Indexes for table `pelanggan`
+-- Indexes for table `jenis_peralatan`
 --
-ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`id_pelanggan`);
+ALTER TABLE `jenis_peralatan`
+  ADD PRIMARY KEY (`id_jenis`);
 
 --
--- Indexes for table `transaksi`
+-- Indexes for table `nama_peralatan`
 --
-ALTER TABLE `transaksi`
-  ADD PRIMARY KEY (`id_transaksi`);
+ALTER TABLE `nama_peralatan`
+  ADD PRIMARY KEY (`id_nama`),
+  ADD KEY `id_jenis` (`id_jenis`);
+
+--
+-- Indexes for table `penanganan_gangguan`
+--
+ALTER TABLE `penanganan_gangguan`
+  ADD PRIMARY KEY (`id_penanganan`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `kendaraan`
+-- AUTO_INCREMENT for table `gangguan`
 --
-ALTER TABLE `kendaraan`
-  MODIFY `id_kendaraan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `gangguan`
+  MODIFY `id_gangguan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `pelanggan`
+-- AUTO_INCREMENT for table `jenis_peralatan`
 --
-ALTER TABLE `pelanggan`
-  MODIFY `id_pelanggan` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `jenis_peralatan`
+  MODIFY `id_jenis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `transaksi`
+-- AUTO_INCREMENT for table `nama_peralatan`
 --
-ALTER TABLE `transaksi`
-  MODIFY `id_transaksi` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+ALTER TABLE `nama_peralatan`
+  MODIFY `id_nama` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `penanganan_gangguan`
+--
+ALTER TABLE `penanganan_gangguan`
+  MODIFY `id_penanganan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `nama_peralatan`
+--
+ALTER TABLE `nama_peralatan`
+  ADD CONSTRAINT `nama_peralatan_ibfk_1` FOREIGN KEY (`id_jenis`) REFERENCES `jenis_peralatan` (`id_jenis`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
